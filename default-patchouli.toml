@@ -1,0 +1,4 @@
+upstream = "rust-lang/rust"
+name = "my_project"
+ref = "upstream/main"
+unneeded_files = []
