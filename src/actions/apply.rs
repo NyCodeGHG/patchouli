@@ -22,8 +22,8 @@ pub fn apply() -> Result<()> {
     checkout_from_upstream(&git, config.upstream, &config.r#ref)?;
 
     for file in &config.unneeded_files {
-        let _ = std::fs::remove_dir_all(path.join(&file));
-        let _ = std::fs::remove_file(path.join(&file));
+        let _ = std::fs::remove_dir_all(path.join(file));
+        let _ = std::fs::remove_file(path.join(file));
     }
 
     git.exec(&["add", "."])?;
@@ -48,7 +48,7 @@ fn checkout_from_upstream(git: &Git, upstream: GitRepo, reference: &str) -> Resu
     let _ = git.exec(&["remote", "remove", "upstream"]);
     git.exec(&["remote", "add", "upstream", &upstream.https_url().unwrap()])?;
     git.exec(&["fetch", "upstream", "--prune"])?;
-    if let Err(_) = git.exec(&["checkout", "main"]) {
+    if git.exec(&["checkout", "main"]).is_err() {
         git.exec(&["checkout", "-b", "main"])?;
     }
     git.exec(&["reset", "--hard", reference])?;

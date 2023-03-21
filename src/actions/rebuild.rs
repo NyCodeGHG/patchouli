@@ -6,7 +6,7 @@ use crate::{config, git::Git};
 
 pub fn rebuild() -> Result<()> {
     let config = config::read()?;
-    let git = Git(&Path::new(&config.name));
+    let git = Git(Path::new(&config.name));
     let patches_dir = absolute("patches")?;
     git.exec(&[
         "format-patch",

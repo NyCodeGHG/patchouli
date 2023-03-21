@@ -26,7 +26,7 @@ impl GitRepo {
     pub fn ssh_url(&self) -> Option<String> {
         match &self.inner {
             GitRepoInner::GitHub { owner, name } => Some(format!("git@github.com:{owner}/{name}")),
-            GitRepoInner::GitLab { owner, name } => todo!("SSH not yet supported for GitLab."),
+            GitRepoInner::GitLab { .. } => todo!("SSH not yet supported for GitLab."),
             GitRepoInner::Ssh(url) => Some(url.clone()),
             _ => None,
         }
@@ -81,6 +81,7 @@ impl<'de> Visitor<'de> for GitRepoVisitor {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[allow(unused)]
 enum GitRepoInner {
     GitHub { owner: String, name: String },
     GitLab { owner: String, name: String },

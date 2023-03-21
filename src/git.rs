@@ -17,7 +17,7 @@ impl Git<'_> {
         let output = Command::new("git")
             .args(Self::BASE_ARGS)
             .args(args)
-            .current_dir(&self.0)
+            .current_dir(self.0)
             .output()?;
         io::stdout().write_all(&output.stdout)?;
         io::stderr().write_all(&output.stderr)?;

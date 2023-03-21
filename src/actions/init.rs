@@ -9,7 +9,7 @@ use color_eyre::Result;
 pub fn init() -> Result<()> {
     let config_path = Path::new(concat!(env!("CARGO_PKG_NAME", ".toml")));
     if !config_path.exists() {
-        let mut file = File::create(&config_path)?;
+        let mut file = File::create(config_path)?;
         file.write_all(include_bytes!("../../default-patchouli.toml"))?;
         println!("Created {}", config_path.to_string_lossy());
     }
